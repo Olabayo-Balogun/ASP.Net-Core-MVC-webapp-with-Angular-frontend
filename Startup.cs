@@ -22,28 +22,37 @@ namespace DutchTreat
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //The code tells the program to use and run staic files like html pages
+            //Note that the arrangement order of your middleware matters here.
+            //Middlewares are basically logical instructions that the program has to execute
+
+            //The code below tells the project to use default files that it finds when it looks through the www.root folder or other folders in a project.
+            //It can be especially useful when you want to automatically render static pages and resources that are well known eg. index.html
+            //What it does is changes the path of the project such that it is easier to access especially when used with the "app.UseStaticFiles();" middleware.
+            //If you reverse the arrangement order of both this middleware and the UseDefaultFiles middleware the static pages won't be rendered by default except if you specify the url
+            app.UseDefaultFiles();
+
+            //The code below tells the program to use and run staic files like html pages
             //Note that the code below only works on static files found in the www.root folder
             app.UseStaticFiles();
 
             //The code below wrapped in an if block simply specifies what kind of exception page to render
             //In this case, the environment is a development environment
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
 
-            //The code below enables routing
-            app.UseRouting();
+            ////The code below enables routing
+            //app.UseRouting();
 
-            //The code below allows the use of endpoints
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-            });
+            ////The code below allows the use of endpoints
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapGet("/", async context =>
+            //    {
+            //        await context.Response.WriteAsync("Hello World!");
+            //    });
+            //});
 
 
             //Code

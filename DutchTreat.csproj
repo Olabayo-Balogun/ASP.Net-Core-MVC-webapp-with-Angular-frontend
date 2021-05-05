@@ -10,7 +10,36 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\index.html" />
+    <Compile Remove="wwwroot\css\**" />
+    <Compile Remove="wwwroot\js\**" />
+    <Compile Remove="wwwroot\lib\**" />
+    <Content Remove="wwwroot\css\**" />
+    <Content Remove="wwwroot\js\**" />
+    <Content Remove="wwwroot\lib\**" />
+    <EmbeddedResource Remove="wwwroot\css\**" />
+    <EmbeddedResource Remove="wwwroot\js\**" />
+    <EmbeddedResource Remove="wwwroot\lib\**" />
+    <None Remove="wwwroot\css\**" />
+    <None Remove="wwwroot\js\**" />
+    <None Remove="wwwroot\lib\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\css\site.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\js\index.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.slim.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.slim.min.js" />
+    <None Include="wwwroot\lib\jquery\dist\jquery.slim.min.map" />
   </ItemGroup>
 
 </Project>

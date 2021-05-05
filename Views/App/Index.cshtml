@@ -1,0 +1,74 @@
+﻿@*Anything within the "@" and "{}" sign is a razor code*@
+@{
+    ViewBag.Title = "Home Page";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    @*Anything declared within the razor code can be plugged into the HTML and it'll work*@
+    <title>Dutch Treat: @ViewBag.Title</title>
+    @*What the "~/" means is that the path is going to be at the root of the website/program*@
+    @*Only use absolute path declaration where you're sure what you're referring to will be there*@
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>@ViewBag.Title</h1>
+    <p>This is a website for dutch treat store...</p>
+    <div class="product-info">
+        <img src="~/img/VanGogh.jpg" />
+        <h3>Mug</h3>
+        <ul class="products-props">
+            <li>Price: $9.99</li>
+            <li>Artist: Van Gogh</li>
+            <li>Title: </li>
+            <li>Description: Self-Portrait</li>
+        </ul>
+        <button id="buyButton">Buy</button>
+    </div>
+
+    <div id="theForm">
+        <form>
+            <label>Username:</label>
+            <br />
+            <input />
+            <br />
+            <label>Email:</label>
+            <br />
+            <input type="email" />
+            <br />
+            <label>Subject:</label>
+            <br />
+            <input type="text" />
+            <br />
+            <label>Message:</label>
+            <br />
+            <textarea rows="4"> </textarea>
+            <br />
+            <input type="submit" value="Send Message" />
+        </form>
+    </div>
+
+    <div id="login-block">
+        <div class="toggle-item">Login</div>
+        <div class="popup-form">
+            <form>
+                <div>
+                    <label>Username</label>
+                    <input />
+                </div>
+                <div>
+                    <label>Password</label>
+                    <input type="password" />
+                </div>
+                <div>
+                    <input type="submit" value="Login" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/home.js"></script>
+</body>
+</html>

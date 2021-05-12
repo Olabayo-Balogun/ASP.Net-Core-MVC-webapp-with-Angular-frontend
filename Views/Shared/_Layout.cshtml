@@ -1,0 +1,23 @@
+﻿@*Anything within the "@" and "{}" sign is a razor code*@
+@*This page is the boilerplate for all view pages, what this means is that any page that calls this page doesn't need to bother about things like header, footer and the standard template for HTML pages, all those pages need to do is write code for their specific page*@
+<!DOCTYPE html>
+<html>
+<head>
+    @*Anything declared within the razor code can be plugged into the HTML and it'll work*@
+    <title>Dutch Treat: @ViewBag.Title</title>
+    @*What the "~/" means is that the path is going to be at the root of the website/program*@
+    @*Only use absolute path declaration where you're sure what you're referring to will be there*@
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <header>Welcome to Dutch Treat</header>
+    <section>
+        <h2>@ViewBag.Title</h2>
+        @*The "@RenderBody()" code written below is what calls the code from other pages. When a page references the layout page, they are able to borrow all the code in the layout page, the code specific to that page is inserted in the RenderBody part of the _Layout page*@
+        @RenderBody() 
+    </section>
+    <footer>Copyright 2021 Dutch Treat LLC</footer>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/js/home.js"></script>
+</body>
+</html>

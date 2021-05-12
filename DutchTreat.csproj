@@ -42,4 +42,8 @@
     <None Include="wwwroot\lib\jquery\dist\jquery.slim.min.map" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\App\" />
+  </ItemGroup>
+
 </Project>

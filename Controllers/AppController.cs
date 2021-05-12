@@ -21,6 +21,7 @@ namespace DutchTreat.Controllers
         //In this we know that the view must be named "Index"
       public IActionResult Index()
         {
+            //throw new InvalidProgramException("Bad things happen to good developers");
             return View();
         }
     }

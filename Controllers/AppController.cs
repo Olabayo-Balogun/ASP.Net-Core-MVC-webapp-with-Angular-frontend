@@ -21,7 +21,25 @@ namespace DutchTreat.Controllers
         //In this we know that the view must be named "Index"
       public IActionResult Index()
         {
+            //The throw code simply returns the InvalidProgramException page
+            //Don't uncommented the code or this project won't build.
             //throw new InvalidProgramException("Bad things happen to good developers");
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            //It is possible to declare the title of the page in the method, that is what is done here
+            ViewBag.Title = "Contact Us";
+
+            return View();
+        }
+
+        public IActionResult About()
+        {
+            //It is possible to declare the title of the page in the method, that is what is done here
+            ViewBag.Title = "About Us";
+
             return View();
         }
     }

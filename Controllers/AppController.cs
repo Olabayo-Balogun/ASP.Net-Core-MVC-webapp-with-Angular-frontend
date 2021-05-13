@@ -27,6 +27,11 @@ namespace DutchTreat.Controllers
             return View();
         }
 
+        //The attribute below declares the routing parameter and overides the default routing parameter
+        //Normally everything in this controller falls under the "App" route as such any action should be prefixed by "App/"
+        //with the "HttpGet" attribute you can change the routing pattern.
+        //Now the routing pattern for contact isn't "App/Contact", it's simply "contact"
+        [HttpGet("contact")]
         public IActionResult Contact()
         {
             //It is possible to declare the title of the page in the method, that is what is done here

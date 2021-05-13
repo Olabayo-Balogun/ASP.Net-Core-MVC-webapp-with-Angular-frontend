@@ -75,13 +75,13 @@ ul.products-props {
     }
 
 menu li {
-    display: inline;
+    display: inline-flex;
 }
 
-    menu li::after {
-        content: " |";
-    }
+menu li::after {
+    content: " |";
+}
 
-    menu li:last-of-type::after {
-        content: "";
-    }
+menu li:last-of-type::after {
+    content: "";
+}

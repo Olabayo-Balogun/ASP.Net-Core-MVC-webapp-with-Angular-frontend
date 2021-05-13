@@ -35,10 +35,19 @@ namespace DutchTreat.Controllers
         public IActionResult Contact()
         {
             //It is possible to declare the title of the page in the method, that is what is done here
-            ViewBag.Title = "Contact Us";
+            //It isn't advisable to do this as you'll have to repeat it in every overload
+            //It is better to declare this in the view page
+            //ViewBag.Title = "Contact Us";
 
-            throw new InvalidProgramException("Bad things happen to good developers");
             return View();            
+        }
+
+        //This action is meant to respond to the input of the "Contact.cshtml" form
+        //The "HttpPost" attributes helps the programme to know which action the "Contact.cshtml" form is calling
+        [HttpPost("contact")]
+        public IActionResult Contact(object model)
+        {
+            return View();
         }
 
         public IActionResult About()

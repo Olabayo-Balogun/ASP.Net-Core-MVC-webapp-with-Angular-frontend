@@ -1,1 +1,26 @@
-﻿<h2>@ViewBag.Title</h2>
+﻿@*Using this name declaration saves us from repeating the ViewBag.Title name in the actions on the controller especially when one action has different attributes such as "HttpGet" and "HttpPost"*@
+@{ 
+    ViewBag.Title = "Contact Us";
+}
+
+@*Note that the "name" attribute helps give identity to the results gotten from the form*@
+@*At other times it helps link to corresponding names in a database*@
+<form method="post">
+    <label>Username:</label>
+    <br />
+    <input name="name"/>
+    <br />
+    <label>Email:</label>
+    <br />
+    <input type="email" name="email" />
+    <br />
+    <label>Subject:</label>
+    <br />
+    <input type="text" name="subject"/>
+    <br />
+    <label>Message:</label>
+    <br />
+    <textarea rows="4" name="message"> </textarea>
+    <br />
+    <input type="submit" value="Send Message" />
+</form>

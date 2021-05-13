@@ -1,5 +1,7 @@
 ﻿@*Creating the "_ViewStart" page is by default the base page, which why it makes sense to declare the layout page here, all the pages will automatically inherit what is here.*@
 @*The Razor View Start page scaffolds this page and adds the "_Layout" page by default when you right-click the "Views" folder and "add new item".*@
+@*Note that this "_ViewStart" page as well as "_ViewImports" file needs to be present in every folder containing view pages for the declarations in it to take effect.*@
+@*For example, the "Pages" folder has a couple view pages, none of them will implement any declaration in the "_ViewImports" and "_ViewStart" page until a copy of these pages are within the "Pages" folder*@
 @{
     Layout = "_Layout";
 }

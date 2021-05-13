@@ -37,7 +37,8 @@ namespace DutchTreat.Controllers
             //It is possible to declare the title of the page in the method, that is what is done here
             ViewBag.Title = "Contact Us";
 
-            return View();
+            throw new InvalidProgramException("Bad things happen to good developers");
+            return View();            
         }
 
         public IActionResult About()

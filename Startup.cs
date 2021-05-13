@@ -20,7 +20,20 @@ namespace DutchTreat
             //The "Configure" method works with the "ConfigureServices" method as such when the program is running or tries to run it looks to the "ConfigureServices" method for the services it needs.
             //When the middleware "app.UseEndpoints" is called, the services listed below (which are what the server needs) will be referred to in order to respond to the call of that middleware
             //The "services.AddControllers" is used strictly for APIs. When you're going to be returning webpages you need to us the service below.
-            services.AddControllersWithViews();
+            //Code
+            // services.AddControllersWithViews();
+
+           
+            services.AddControllersWithViews()
+
+                 //This code below tells the system to recompile the razor pages (upon request for that page) in a situation where the razor page requested for has changed
+                 //The feature is useful in development so as to avoid rebuilding the project before razor pages recompile (which was previously needed for the changes you made to take effect) especially when you're making frequent changes to the page and it's already running.
+                 //To use this feature you need to install the "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" nuget package. You must install it into the project for this to work.
+                 .AddRazorRuntimeCompilation();
+
+            //This service allows the program to recognize razor pages 
+            //You also need to map to it in the "Configure" method by simply typing "cfg.MapRazorPages();" under the "app.UseEndpoints" middleware.
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +56,11 @@ namespace DutchTreat
             //    app.UseDeveloperExceptionPage();
             //}
 
+            //This code below is what helps us log errors when we are out of development
+            else
+            {
+                app.UseExceptionHandler("/error");
+            }
 
 
             //The code below tells the project to use default files that it finds when it looks through the www.root folder or other folders in a project.
@@ -101,6 +119,9 @@ namespace DutchTreat
 
             app.UseEndpoints(cfg =>
             {
+                //This allows the endpoint to use the name of the razor page name for the view.
+                cfg.MapRazorPages();
+
                 //The code below will allow us to build a format with which url/endpoints will be written and the controller that will handle it. 
                 //The question mark after "id" means the id is optional. It follows the same principle of making things nullable.
                 cfg.MapControllerRoute("Default", "/{controller}/{action}/{id?}",

@@ -7,10 +7,12 @@
     <title>Dutch Treat: @ViewBag.Title</title>
     @*What the "~/" means is that the path is going to be at the root of the website/program*@
     @*Only use absolute path declaration where you're sure what you're referring to will be there*@
+    @*You need to be aware that the order of your stylesheet links matter, we're putting the bootstrap link before our own stylesheet so our stylesheet can override bootstrap should such a clash happen.*@
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
+    <header class="container">
         <h1>Welcome to Dutch Treat</h1>
         <menu>
             <ul>
@@ -25,13 +27,17 @@
             </ul>
         </menu>
     </header>
-    <section>
+    <section class="container">
         <h2>@ViewBag.Title</h2>
         @*The "@RenderBody()" code written below is what calls the code from other pages. When a page references the layout page, they are able to borrow all the code in the layout page, the code specific to that page is inserted in the RenderBody part of the _Layout page*@
+        @RenderBody()
     </section>
-    @RenderBody()
-    <footer>Copyright 2021 Dutch Treat LLC</footer>
+    <footer class="container">
+        <div class="text-center">Copyright 2021 Dutch Treat LLC</div>
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @*We're putting bootstrap js after jquery and before our js file because bootstrap js runs off jquery and we want to still be able to overwrite any bootstrap js code*@ 
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="~/js/index.js"></script>
 
     @*What the code below does is render the jquery client side libraries that were added to the project within multiple pages*@

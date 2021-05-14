@@ -1,4 +1,5 @@
-﻿using DutchTreat.ViewModels;
+﻿using DutchTreat.Services;
+using DutchTreat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,16 @@ namespace DutchTreat.Controllers
     //The view folder that responds to this controller must bear the same name, in this case, the view must be named "App"
     public class AppController : Controller
     {
+        //Private fields are always named with the "_" prefix (by convention)
+        private readonly IMailService _mailService;
+
+        //This constructor is used to declare and make use of services in the "Startup" class
+        //You should as usual create a private field for declarations like these.
+        public AppController(IMailService mailService)
+        {
+            _mailService = mailService;
+        }
+
         //The format of code below is used to map data to a view and return it.
         //IActionResult is used in these cases
         //The view that responds to this method below must share the same name as this view
@@ -65,12 +76,20 @@ namespace DutchTreat.Controllers
             //In this case, the Contact action is assigned to the ContactViewModel so this ModelState is used to control what happens if the input matches the requirement of the ContactViewModel
             if (ModelState.IsValid)
             {
-               
+                //We're demoing the sending of the mail response (from the contact form) below
+                _mailService.SendMessage("shawn@wildermuth.com", model.Subject, $"From: {model.Name} -{model.Email}, Message: {model.Message}");
+
+                //We want to get a response after we've sent the mail and we're writing a code below to demo it. Note that there are better ways to do this.
+                ViewBag.UserMessage = "Mail Sent";
+
+                //We write the code below to clear the form once it's sent so we have a blank form after    
+                ModelState.Clear();
             }
-            else
-            {
+            //There is really no need to add the "else" block because the view page already handles invalid ModelState 
+            //else
+            //{
                 
-            }
+            //}
 
             return View();
         }

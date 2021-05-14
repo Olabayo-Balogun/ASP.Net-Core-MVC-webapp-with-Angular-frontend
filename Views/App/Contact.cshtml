@@ -54,4 +54,7 @@
     <span asp-validation-for="Message"></span>
     <br />
     <input type="submit" value="Send Message" />
+
+    @*The code below is where we input the response message if the mail was sent. Recall that we created this feedback system in the AppController under the ModelState.IsValid condition, we're simply calling the response to display to the user here*@
+    <div>@ViewBag.UserMessage</div>
 </form>

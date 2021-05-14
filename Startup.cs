@@ -1,3 +1,4 @@
+using DutchTreat.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -18,11 +19,25 @@ namespace DutchTreat
         public void ConfigureServices(IServiceCollection services)
         {
             //The "Configure" method works with the "ConfigureServices" method as such when the program is running or tries to run it looks to the "ConfigureServices" method for the services it needs.
+
             //When the middleware "app.UseEndpoints" is called, the services listed below (which are what the server needs) will be referred to in order to respond to the call of that middleware
+
             //The "services.AddControllers" is used strictly for APIs. When you're going to be returning webpages you need to us the service below.
             //Code
             // services.AddControllersWithViews();
 
+            //The Singleton service below is used when you have a service that you want to reuse over and over again
+            //services.AddSingleton
+
+            //The Scoped service below is used when you have a type of request which should trigger the same process/response everytime
+            //services.AddScoped
+
+            //The Transient service below is used when you want to trigger a process that kills itself after it has run, it can however remain if it's being used by other users. It's the middleground between the Singleton and Scoped service
+            //The code below declares "IMailService" as what is being injected and "NullMailService" as the concrete class/type that's sent in
+            //The NullMailService class can be changed to something else if a more production-worthy alternative is created
+            //It is possible to specify which of the AddTransient service will work in which environment writing the env.IsProduction and/or env.IsDevelopment block of code here as is done below in the ConfigureServices method
+            //Note that you have to inject this in the controller that will be using the service by creating a constructor in that controller
+            services.AddTransient<IMailService, NullMailService>();
            
             services.AddControllersWithViews()
 

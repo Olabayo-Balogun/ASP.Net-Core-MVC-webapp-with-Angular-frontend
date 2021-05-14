@@ -57,6 +57,21 @@ namespace DutchTreat.Controllers
         //If you add a breakpoint to the "return View()" line of code and run the program, if you check the "model" parameter name it'll show you a snapshot view of the information from the contact form passed directly into the properties of the ContactViewModel
         public IActionResult Contact(ContactViewModel model)
         {
+            //The code just below is the default purpose of an action
+            //Code
+            //return View();
+
+            //The declaration below is used to control what happens if the input matches the requirement of the ViewModel class the action is assigned to.
+            //In this case, the Contact action is assigned to the ContactViewModel so this ModelState is used to control what happens if the input matches the requirement of the ContactViewModel
+            if (ModelState.IsValid)
+            {
+               
+            }
+            else
+            {
+                
+            }
+
             return View();
         }
 

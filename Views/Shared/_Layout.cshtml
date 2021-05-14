@@ -17,21 +17,26 @@
                 @*All the commented code below is better refactored using tag helpers so the urls aren't hardcoded which can be beneficial if the routing changes*@
                 @*Code*@
                 @*<li><a href="/">Home</a></li>
-        <li><a href="/app/contact">Contact</a></li>
-        <li><a href="/app/about">About</a></li>*@
-                <li><a asp-controller ="App" asp-action="Index">Home</a></li>
-                <li><a asp-controller ="App" asp-action="Contact">Contact</a></li>
-                <li><a asp-controller ="App" asp-action="About">About</a></li>
+                    <li><a href="/app/contact">Contact</a></li>
+                    <li><a href="/app/about">About</a></li>*@
+                <li><a asp-controller="App" asp-action="Index">Home</a></li>
+                <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
+                <li><a asp-controller="App" asp-action="About">About</a></li>
             </ul>
         </menu>
     </header>
     <section>
         <h2>@ViewBag.Title</h2>
         @*The "@RenderBody()" code written below is what calls the code from other pages. When a page references the layout page, they are able to borrow all the code in the layout page, the code specific to that page is inserted in the RenderBody part of the _Layout page*@
-        @RenderBody() 
     </section>
+    @RenderBody()
     <footer>Copyright 2021 Dutch Treat LLC</footer>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/js/home.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/index.js"></script>
+
+    @*What the code below does is render the jquery client side libraries that were added to the project within multiple pages*@
+    @*The "false" parameter that was specified simply means the jquery library being installed in the project won't take effect in every page*@
+    @*The opposite of the "false" parameter is the "required" parameter which means every page will use the "Scripts"*@
+    @RenderSection("Scripts", false)
 </body>
 </html>

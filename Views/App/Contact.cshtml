@@ -9,26 +9,49 @@
     ViewBag.Title = "Contact Us";
 }
 
+@*In order to call the Jquery client-side library into this page you need to write the code below*@
+@*Note that the name "Scripts" is similar to the name declared in the "RenderSection" code in the "_Layout.cshtml" page. The name has to be the same*@
+@*Everything written here will insert itself in the "RenderSection" part of the "_Layout.cshtml" page which this page will also make use of.*@
+@section Scripts{
+@*Note that the order here matters, jquery-validation should come before jquery-validation-unobtrusive*@
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.js"></script>
+}
+
 @*Note that the "name" attribute helps give identity to the results gotten from the form*@
 @*At other times it helps link to corresponding names in a database*@
 <form method="post">
+    @*The "asp-validation-summary" is an attribute that is used to display errors to the user regarding the form they're filling after they try sending it*@
+    @*If you specify "All" you'll get all the errors in a form after the user has filled it and wants to submit, If you specify "Model-only", the user will be alerted as he/she is typing/filling in the input box so as to save the time and energy of the user.*@
+    @*Note that you need two Jquery client side library which are "Jquery-validation" and "Jquery-validation-unobtrusive"*@
+    @*Right-click the project name, go to client side library, use "unpkg" to search for the the libraries mentioned above and install just the "dist" folder which is part of the package*@
+    @*You should go the "_Layout.cshtml" page and reference it at the bottom using "@RenderSection("Scripts", false)" in order to allow the jquery libraries to take effect in multiple pages*@
+
+    @*<div asp-validation-summary="All"></div>*@
+    <div asp-validation-summary="ModelOnly"></div>
+
     @*It is important to use the "asp-for" attribute in the label so if anyone click the label, the focus will be on the input and the person can make their input, adding this attribute helps map the label to the input*@
-    <label asp-for="Name" >Username:</label>
+    <label asp-for="Name">Username:</label>
     <br />
     @*The "asp-for" attribute is used to replace the HTML "name" attribute, the "asp-for" attribute is more efficient because it makes use of model binding to bind the input to a property in the ViewModel*@
     <input asp-for="Name" />
+    @*The "asp-validation-for" is used to show the error message right next to the input so the user can see it quickly if something is wrong with the input. You have to ensure you state the correct ViewModel property in the quotation mark for things to work as it should and bind to the rules of that ViewModel property*@
+    <span asp-validation-for="Name"></span>
     <br />
     <label asp-for="Email">Email:</label>
     <br />
-    <input type="email" asp-for="Email"/>
+    <input type="email" asp-for="Email" />
+    <span asp-validation-for="Email"></span>
     <br />
     <label asp-for="Subject">Subject:</label>
     <br />
     <input type="text" asp-for="Subject" />
+    <span asp-validation-for="Subject"></span>
     <br />
     <label asp-for="Message">Message:</label>
     <br />
     <textarea rows="4" asp-for="Message"> </textarea>
+    <span asp-validation-for="Message"></span>
     <br />
     <input type="submit" value="Send Message" />
 </form>

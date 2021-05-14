@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DutchTreat.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,16 @@ namespace DutchTreat.Controllers
         //This action is meant to respond to the input of the "Contact.cshtml" form
         //The "HttpPost" attributes helps the programme to know which action the "Contact.cshtml" form is calling
         [HttpPost("contact")]
-        public IActionResult Contact(object model)
+
+        //The "object" parameter written in the line of code below isn't specific enough so it can't be matched to the database or any model
+        //Code
+        //public IActionResult Contact(object model)
+
+        //The ContactViewModel specifies how the action can interact with the model/database
+        //Whatever inputs in the form will matched to the properties in the "ContactViewModel" as long as their names match
+        //The casing of the property names and the "name" attribute on the form doesn't need to the same, uppercase or lowercase it'll be recognizeable if the names are spelt in the same way
+        //If you add a breakpoint to the "return View()" line of code and run the program, if you check the "model" parameter name it'll show you a snapshot view of the information from the contact form passed directly into the properties of the ContactViewModel
+        public IActionResult Contact(ContactViewModel model)
         {
             return View();
         }

@@ -1,26 +1,34 @@
-﻿@*Using this name declaration saves us from repeating the ViewBag.Title name in the actions on the controller especially when one action has different attributes such as "HttpGet" and "HttpPost"*@
-@{ 
+﻿@*adding the "@model DutchTreat.ViewModels.ContactViewModel" declaration helps in creating an easier way for the program to know the inputs in this form is to be mapped directly to the ContactViewModel*@
+@*@model DutchTreat.ViewModels.ContactViewModel*@
+
+@*Another way to do the above is to write "@model ContactViewModel" and add the full namespace (@using DutchTreat.ViewModels) to the "_ViewImports.cshtml" page*@
+
+@model ContactViewModel
+@*Using this name declaration saves us from repeating the ViewBag.Title name in the actions on the controller especially when one action has different attributes such as "HttpGet" and "HttpPost"*@
+@{
     ViewBag.Title = "Contact Us";
 }
 
 @*Note that the "name" attribute helps give identity to the results gotten from the form*@
 @*At other times it helps link to corresponding names in a database*@
 <form method="post">
-    <label>Username:</label>
+    @*It is important to use the "asp-for" attribute in the label so if anyone click the label, the focus will be on the input and the person can make their input, adding this attribute helps map the label to the input*@
+    <label asp-for="Name" >Username:</label>
     <br />
-    <input name="name"/>
+    @*The "asp-for" attribute is used to replace the HTML "name" attribute, the "asp-for" attribute is more efficient because it makes use of model binding to bind the input to a property in the ViewModel*@
+    <input asp-for="Name" />
     <br />
-    <label>Email:</label>
+    <label asp-for="Email">Email:</label>
     <br />
-    <input type="email" name="email" />
+    <input type="email" asp-for="Email"/>
     <br />
-    <label>Subject:</label>
+    <label asp-for="Subject">Subject:</label>
     <br />
-    <input type="text" name="subject"/>
+    <input type="text" asp-for="Subject" />
     <br />
-    <label>Message:</label>
+    <label asp-for="Message">Message:</label>
     <br />
-    <textarea rows="4" name="message"> </textarea>
+    <textarea rows="4" asp-for="Message"> </textarea>
     <br />
     <input type="submit" value="Send Message" />
 </form>

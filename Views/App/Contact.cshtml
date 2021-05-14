@@ -32,33 +32,35 @@
             @*<div asp-validation-summary="All"></div>*@
             <div asp-validation-summary="ModelOnly"></div>
 
-            @*It is important to use the "asp-for" attribute in the label so if anyone click the label, the focus will be on the input and the person can make their input, adding this attribute helps map the label to the input*@
-            <label asp-for="Name">Username:</label>
-            <br />
-            @*The "asp-for" attribute is used to replace the HTML "name" attribute, the "asp-for" attribute is more efficient because it makes use of model binding to bind the input to a property in the ViewModel*@
-            <input asp-for="Name" />
-            @*The "asp-validation-for" is used to show the error message right next to the input so the user can see it quickly if something is wrong with the input. You have to ensure you state the correct ViewModel property in the quotation mark for things to work as it should and bind to the rules of that ViewModel property*@
-            <span asp-validation-for="Name"></span>
-            <br />
-            <label asp-for="Email">Email:</label>
-            <br />
-            <input type="email" asp-for="Email" />
-            <span asp-validation-for="Email"></span>
-            <br />
-            <label asp-for="Subject">Subject:</label>
-            <br />
-            <input type="text" asp-for="Subject" />
-            <span asp-validation-for="Subject"></span>
-            <br />
-            <label asp-for="Message">Message:</label>
-            <br />
-            <textarea rows="4" asp-for="Message"> </textarea>
-            <span asp-validation-for="Message"></span>
-            <br />
-            <input type="submit" value="Send Message" />
+            <div class="form-group">
+                @*It is important to use the "asp-for" attribute in the label so if anyone click the label, the focus will be on the input and the person can make their input, adding this attribute helps map the label to the input*@
+                <label asp-for="Name">Your Name:</label>
+                @*The "asp-for" attribute is used to replace the HTML "name" attribute, the "asp-for" attribute is more efficient because it makes use of model binding to bind the input to a property in the ViewModel*@
+                <input asp-for="Name"  class="form-control"/>
+                @*The "asp-validation-for" is used to show the error message right next to the input so the user can see it quickly if something is wrong with the input. You have to ensure you state the correct ViewModel property in the quotation mark for things to work as it should and bind to the rules of that ViewModel property*@
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email">Email:</label>
+                <input type="email" asp-for="Email" class="form-control"/>
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subject">Subject:</label>
+                <input type="text" asp-for="Subject" class="form-control"/>
+                <span asp-validation-for="Subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Message">Message:</label>
+                <textarea rows="4" asp-for="Message" class="form-control"> </textarea>
+                <span asp-validation-for="Message" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Send Message" class="btn btn-primary"/>
 
-            @*The code below is where we input the response message if the mail was sent. Recall that we created this feedback system in the AppController under the ModelState.IsValid condition, we're simply calling the response to display to the user here*@
-            <div>@ViewBag.UserMessage</div>
+                @*The code below is where we input the response message if the mail was sent. Recall that we created this feedback system in the AppController under the ModelState.IsValid condition, we're simply calling the response to display to the user here*@
+                <div  class="text-success">@ViewBag.UserMessage</div>
+            </div>
         </form>
     </div>
 </div>

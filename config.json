@@ -1,0 +1,30 @@
+﻿{
+  //The way things work here is hierachical as such stuff compounds or concatenates as you travel down the document
+  //An example is the colors, afterwhich we can say the favorite color is blue because the "Favorite" value concatenates with the "Colors", we can also call it name-value pairs.
+  "Colors": {
+    "Favorite": "Blue"
+  },
+  //This basically specifies the connection string value pair for the DutchContext that we created 
+  //"ConnectionStrings" is a conventional name as such the project understands what it means because it has been given a certain meaning with some processes attached to it.
+  "ConnectionStrings": {
+    //You can get the connection string from the SQL Server Object Explorer then modify it to suit your needs
+    //The template below (if followed) should address your needs
+    //The "MultipleActiveResultSets = true" simply tells the SQL server to get multiple results rather than just a single result and this can be important in Entity framework
+    "DutchContextDb": "Data Source=(localdb)\\ProjectsV13;Initial Catalog=DutchTreatDb;Integrated Security=True;Connect Timeout=30; MultipleActiveResultSets = true;"
+  }
+
+  //The purpose of creating a bespoke config file is so you can make it easier for developers to find and manipulate things here rather than having to sort through the usual pile of things in the appsettings.json file that is scaffolded with this project.
+
+  //After setting all of these stuff up you can then create a database by opening the command line tool (or Developer powershell) and typing "dotnet ef database update" (after you're certain you're in the right path to the project in your command line). 
+  // If things go well a database will be created (which you can see using the SQL Server Object Explorer) and it'll bear the name you specified as the "Catalog" value (in the "DutchContextDb" value-pair) which in this case is "DutchTreatDb" 
+
+  //After doing the above (and not getting any errors), to make your first migration, you have to type "dotnet ef migrations add InitialDb" to create your first migration which will then created the tables using the entities you created.
+
+  //The "InitialDb" part isn't set in stone, you can change it, it's just a name for the migration, seeing as it's the first migration, by convention we call it "InitialDb" or "InitialMigration". It is important to properly name your migration so you can easily tell what you did in that migration based on the name of the migration
+
+  //It is advised that you check the scaffolded files that were created as a result of your migration so as to confirm that it isn't empty, if it's empty there will be nothing to update to the database.
+
+  //Once that is done, the final stage is updating the migration and tables to the database by typing "dotnet ef database update" in the Developer Powershell.
+
+  //You can move the "Migrations" folder (that is scaffolded as a result of entity framework) to the "Data" folder in order to make your project more organized
+}

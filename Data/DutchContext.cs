@@ -16,5 +16,13 @@ namespace DutchTreat.Data
         //You can choose to create a DbSet for it, it's totally optional
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
+
+        //The code below is used to enable us create and update database using entity framework core
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            optionsBuilder.UseSqlServer();
+        }
     }
 }

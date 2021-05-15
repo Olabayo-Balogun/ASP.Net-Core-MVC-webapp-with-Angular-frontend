@@ -1,7 +1,9 @@
+using DutchTreat.Data;
 using DutchTreat.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,8 +16,6 @@ namespace DutchTreat
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
             //The "Configure" method works with the "ConfigureServices" method as such when the program is running or tries to run it looks to the "ConfigureServices" method for the services it needs.
@@ -25,6 +25,23 @@ namespace DutchTreat
             //The "services.AddControllers" is used strictly for APIs. When you're going to be returning webpages you need to us the service below.
             //Code
             // services.AddControllersWithViews();
+
+            //The service below is used to enable us to use entity framework to create and manipulate a database
+            //The DbContext class we created (DutchContext which inherited from DbContext) is something we need to specify in the angle brackets so as to enable the service to know which class we're using as a DbContext class
+            //Recall that DbContext class is where we declared the entities that we will be creating a database table for
+            //You're going to need to add the "using DutchTreat.Data;" for the service to know where to find the DbContext class.
+            //For the DbContext parameter, we need to specify which database we're using as such we used the lambda to create a declaration specifying that we're using SqlServer.
+            //You need the "using Microsoft.EntityFrameworkCore;" namespace to make it work
+            //Code
+            //services.AddDbContext<DutchContext>(cfg =>
+            //    {
+            //        cfg.UseSqlServer();
+            //    });
+
+            //The code above still needs more configuration to work as such a better method is needed
+            //Go to the DutchContext class and create an overriding method that will be used to make the process of updating and creating tables better.
+            //The code will be written in more detail there as this class is already filled with a lot of comments
+            services.AddDbContext<DutchContext>();
 
             //The Singleton service below is used when you have a service that you want to reuse over and over again
             //services.AddSingleton

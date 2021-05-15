@@ -1,0 +1,18 @@
+﻿@*The first thing we have to do is declare the model for the page which more or less is the shape(or type) of data we'll be using in this view page*@
+@*As a result of the fact that we're returning a list of products, we can use a "List" or "IEnumerable" form in which the data is coming in, example as shown below.*@
+@*I will be adding the full namespace of the "Product" class to the "_ViewImports.cshtml" page so I can just specify that I'm using the "Product" class without having to write the full namespace here or in other pages that I'll be needing the "Product" class*@
+@*A benefit of specifying the model is so we can use intellisense in this page which makes writing the code easier, faster and more assured because the intellisense helps us confirm that the model we're indeed mapping to.*@
+@model IEnumerable<Product>
+<h1>Shop</h1>
+
+@*Notice that the "@Model" being declared below starts with a block letter, it represents the "IEnumerable<Product>" that we declared above *@
+@*The count tells us how many products we have*@
+<p>Count: @Model.Count()</p>
+
+@*The foreach block of code below helps us declare the data we want returned and style it within the page*@
+@foreach (var p in Model)
+{
+    <li>@p.Title</li>
+}
+
+@*The next stage is seeding the database so we can see what the page will look like if we have products in the database*@

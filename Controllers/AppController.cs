@@ -1,4 +1,5 @@
-﻿using DutchTreat.Services;
+﻿using DutchTreat.Data;
+using DutchTreat.Services;
 using DutchTreat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,12 +20,14 @@ namespace DutchTreat.Controllers
     {
         //Private fields are always named with the "_" prefix (by convention)
         private readonly IMailService _mailService;
+        private readonly DutchContext _context;
 
-        //This constructor is used to declare and make use of services in the "Startup" class
+        //These constructor parameters are used in conjunction with services declared in the "Startup" class
         //You should as usual create a private field for declarations like these.
-        public AppController(IMailService mailService)
+        public AppController(IMailService mailService, DutchContext context)
         {
             _mailService = mailService;
+            _context = context;
         }
 
         //The format of code below is used to map data to a view and return it.
@@ -100,6 +103,30 @@ namespace DutchTreat.Controllers
             ViewBag.Title = "About Us";
 
             return View();
+        }
+
+        //This action is created in order to create a shop that can display products thus making use of the database we just created
+        //Before you can do this you need access to the "DutchContext.cs" class (which will now be declared in the AppController constructor above.
+        public IActionResult Shop()
+        {
+            //The variable below goes into the database to fetch the products, orders it by category and returns it to us in a list
+            //Code
+            //var results = _context.Products.ToList()
+            //    .OrderBy(p => p.Category)
+            //    .ToList();
+
+            //We can also do the above using LINQ query (which will be illustrated below)
+            var results = from p in _context.Products
+                                orderby p.Category
+                                select p;
+
+            //This code below would work well if we were using the first "results" variable (which we commented out) because that variable was going to return as a list, however because we are currently using LINQ query, we have to use another return View with the added method of returning to list, it'll be illustrated below.
+            //Code
+            //return View(results);
+
+            //The code below returns the products (obtained using LINQ query) as a list
+            //Note that it is possible to pass data directly into the view as shown below
+            return View(results.ToList());
         }
     }
 }

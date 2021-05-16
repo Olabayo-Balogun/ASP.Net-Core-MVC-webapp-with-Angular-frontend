@@ -64,6 +64,10 @@ namespace DutchTreat
             //The "AddDbContext" above makes this service scoped
             services.AddTransient<DutchSeeder>();
 
+            //What the service below does is that it adds "IDutchRepository" as a service that people can use but the "DutchRepository" is the implementation.
+            //It makes it easy to swap out things when you want to test or use other repositories, al you have to do is remove the "DutchRepository" and replace it with "MockDutchRepository" (if you're running tests) or another repository
+            services.AddScoped<IDutchRepository, DutchRepository>();
+
             //The Singleton service below is used when you have a service that you want to reuse over and over again
             //services.AddSingleton
 

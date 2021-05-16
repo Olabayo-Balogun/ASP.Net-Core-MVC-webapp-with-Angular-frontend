@@ -20,26 +20,36 @@ namespace DutchTreat.Controllers
     {
         //Private fields are always named with the "_" prefix (by convention)
         private readonly IMailService _mailService;
-        private readonly DutchContext _context;
+        private readonly IDutchRepository _repository;
+        //private readonly DutchContext _context;
 
         //These constructor parameters are used in conjunction with services declared in the "Startup" class
         //You should as usual create a private field for declarations like these.
-        public AppController(IMailService mailService, DutchContext context)
+        //public AppController(IMailService mailService, DutchContext context)
+        //{
+        //    _mailService = mailService;
+        //    _context = context;
+        //}
+
+        //We removed the "DutchContext" and replaced it with the repository and we will be accessing the database using the repository
+        //At the moment we have just the product in the repository so we're just fetching the products
+        public AppController(IMailService mailService, IDutchRepository repository)
         {
             _mailService = mailService;
-            _context = context;
+            _repository = repository;
+            //_context = context;
         }
 
         //The format of code below is used to map data to a view and return it.
         //IActionResult is used in these cases
         //The view that responds to this method below must share the same name as this view
         //In this we know that the view must be named "Index"
-      public IActionResult Index()
+        public IActionResult Index()
         {
             //The throw code simply returns the InvalidProgramException page
             //Don't uncommented the code or this project won't build.
             //throw new InvalidProgramException("Bad things happen to good developers");
-            var results = _context.Products.ToList();
+            //var results = _context.Products.ToList();
             return View();
         }
 
@@ -117,9 +127,12 @@ namespace DutchTreat.Controllers
             //    .ToList();
 
             //We can also do the above using LINQ query (which will be illustrated below)
-            var results = from p in _context.Products
-                                orderby p.Category
-                                select p;
+            //var results = from p in _context.Products
+            //                    orderby p.Category
+            //                    select p;
+
+            //We're not querying the database directly here as it's unsafe which is why this method is favored over  the above queries
+            var results = _repository.GetAllProducts();
 
             //This code below would work well if we were using the first "results" variable (which we commented out) because that variable was going to return as a list, however because we are currently using LINQ query, we have to use another return View with the added method of returning to list, it'll be illustrated below.
             //Code
@@ -127,7 +140,10 @@ namespace DutchTreat.Controllers
 
             //The code below returns the products (obtained using LINQ query) as a list
             //Note that it is possible to pass data directly into the view as shown below
-            return View(results.ToList());
+            //return View(results.ToList());
+
+            //We're not returning the results to a list because we already use an IEnumerable in the "IDutchRepository" to make it a list
+            return View(results);
         }
     }
 }

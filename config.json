@@ -11,7 +11,7 @@
     //The template below (if followed) should address your needs
     //The "MultipleActiveResultSets = true" simply tells the SQL server to get multiple results rather than just a single result and this can be important in Entity framework
     "DutchContextDb": "Data Source=(localdb)\\ProjectsV13;Initial Catalog=DutchTreatDb;Integrated Security=True;Connect Timeout=30; MultipleActiveResultSets = true;"
-  }
+  },
 
   //The purpose of creating a bespoke config file is so you can make it easier for developers to find and manipulate things here rather than having to sort through the usual pile of things in the appsettings.json file that is scaffolded with this project.
 
@@ -27,4 +27,18 @@
   //Once that is done, the final stage is updating the migration and tables to the database by typing "dotnet ef database update" in the Developer Powershell.
 
   //You can move the "Migrations" folder (that is scaffolded as a result of entity framework) to the "Data" folder in order to make your project more organized
+
+  //We're setting this up to enable us log messages (which is a useful feature for developers), we can control the messages that are logged for us by the project thus filtering out the noise and unneeded information that the system generates when running
+  //Most of the messages the project logs as it begins running falls under the category of "Information", they're not exactly helpful, they only tell us what the project is doing at that time.
+  "Logging": {
+    "LogLevel": {
+      //This specifies the default level of logging that we expect, anything that isn't at least information message shouldn't be logged
+      "Default": "Information",
+      
+      //"DutchTreat" can be used interchangeably with the "Default"
+      //"DutchTreat": "Information"
+      //The declaration below basically dictates that we only want messages that are at least warning level to be given to us (this is key because there's too much information from Microsoft that we don't really need)
+      "Microsoft":  "Warning"
+    }
+  }
 }

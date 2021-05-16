@@ -39,6 +39,7 @@ namespace DutchTreat.Controllers
             //The throw code simply returns the InvalidProgramException page
             //Don't uncommented the code or this project won't build.
             //throw new InvalidProgramException("Bad things happen to good developers");
+            var results = _context.Products.ToList();
             return View();
         }
 

@@ -19,6 +19,11 @@ namespace DutchTreat.Data
             _config = config;
         }
 
+        //public DutchContext(DbContextOptions<DutchContext> options) : base(options)
+        //{
+
+        //}
+
         //The property below is what is used to issue queries to the Products class/data table. It can also be used to add to the products in the database  
         //By convention, the name of these properties is the plural form of the class
         //We didn't create a DbSet for the "OrderItem" class because the "Order" class has a strong relationship with the "OrderItem" class and we don't need to query the "OrderItem" separately
@@ -37,5 +42,30 @@ namespace DutchTreat.Data
             //The purpose of specifying the path is to pull the value of the "DutchContextDb" which was specified in the "config.json" file. The value of that key is a string that lets this method know where to find the database it'll be using
             optionsBuilder.UseSqlServer(_config["ConnectionStrings:DutchContextDb"]);
         }
+
+    //The code below can also specify the relationship between entities and the database thus enabling them to map to one another
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            //The code below can be used to specify properties as it is being created in the database
+            //Code
+            //modelBuilder.Entity<Product>()
+            //    .Property(p => p.Title)
+            //    .HasMaxLength(50);
+
+            //We're using the block of code below to seed data into our model (which has a table in the database)
+            //".HasData" is what makes this possible after "modelBuilder" maps to the model class
+            modelBuilder.Entity<Order>()
+                .HasData(new Order()
+                {
+                    Id = 1,
+                    OrderDate = DateTime.UtcNow,
+                    OrderNumber = "12345"
+                });
+
+            //We seed this data above by opening our command window (Developer powershell), navigating to the data folder and typing the command "dotnet ef migrations add SeedDate".
+            //Note that the "SeedDate" is simply a name for the migration
+;        }
     }
 }

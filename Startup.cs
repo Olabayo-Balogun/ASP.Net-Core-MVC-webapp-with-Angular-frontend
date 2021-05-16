@@ -16,32 +16,53 @@ namespace DutchTreat
 {
     public class Startup
     {
+        private readonly IConfiguration _config;
+
+        public Startup(IConfiguration config)
+        {
+            _config = config;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
-            //The "Configure" method works with the "ConfigureServices" method as such when the program is running or tries to run it looks to the "ConfigureServices" method for the services it needs.
+        //The "Configure" method works with the "ConfigureServices" method as such when the program is running or tries to run it looks to the "ConfigureServices" method for the services it needs.
 
-            //When the middleware "app.UseEndpoints" is called, the services listed below (which are what the server needs) will be referred to in order to respond to the call of that middleware
+        //When the middleware "app.UseEndpoints" is called, the services listed below (which are what the server needs) will be referred to in order to respond to the call of that middleware
 
-            //The "services.AddControllers" is used strictly for APIs. When you're going to be returning webpages you need to us the service below.
-            //Code
-            // services.AddControllersWithViews();
+        //The "services.AddControllers" is used strictly for APIs. When you're going to be returning webpages you need to us the service below.
+        //Code
+        // services.AddControllersWithViews();
 
-            //The service below is used to enable us to use entity framework to create and manipulate a database
-            //The DbContext class we created (DutchContext which inherited from DbContext) is something we need to specify in the angle brackets so as to enable the service to know which class we're using as a DbContext class
-            //Recall that DbContext class is where we declared the entities that we will be creating a database table for
-            //You're going to need to add the "using DutchTreat.Data;" for the service to know where to find the DbContext class.
-            //For the DbContext parameter, we need to specify which database we're using as such we used the lambda to create a declaration specifying that we're using SqlServer.
-            //You need the "using Microsoft.EntityFrameworkCore;" namespace to make it work
-            //Code
-            //services.AddDbContext<DutchContext>(cfg =>
-            //    {
-            //        cfg.UseSqlServer();
-            //    });
+        //The service below is used to enable us to use entity framework to create and manipulate a database
+        //The DbContext class we created (DutchContext which inherited from DbContext) is something we need to specify in the angle brackets so as to enable the service to know which class we're using as a DbContext class
+        //Recall that DbContext class is where we declared the entities that we will be creating a database table for
+        //You're going to need to add the "using DutchTreat.Data;" for the service to know where to find the DbContext class.
+        //For the DbContext parameter, we need to specify which database we're using as such we used the lambda to create a declaration specifying that we're using SqlServer.
+        //You need the "using Microsoft.EntityFrameworkCore;" namespace to make it work
+        //Code
+        //services.AddDbContext<DutchContext>(cfg =>
+        //    {
+        //        cfg.UseSqlServer();
+        //    });
 
-            //The code above still needs more configuration to work as such a better method is needed
-            //Go to the DutchContext class and create an overriding method that will be used to make the process of updating and creating tables better.
-            //The code will be written in more detail there as this class is already filled with a lot of comments
-            services.AddDbContext<DutchContext>();
+        //The code above still needs more configuration to work as such a better method is needed
+        //Go to the DutchContext class and create an overriding method that will be used to make the process of updating and creating tables better.
+        //The code will be written in more detail there as this class is already filled with a lot of comments
+        services.AddDbContext<DutchContext>();
+
+        //We're using this to map to directly to the database
+        //We need to strengthen this method through some actions.
+        //This service makes the "AddTransient" service scoped
+        //services.AddDbContext<DutchContext>(cfg =>
+        //    {
+        //        cfg.UseSqlServer(_config.GetConnectionString("DutchConnectionStrings"));
+        //    });
+
+            //Check the usecase for Transient service below
+            //The dependency injection is what will ensure the creation of the code below
+            //This is a scoped service (though it's not very apparent here) as such we have to write some extra code in the "RunSeeding" method in the "program" class
+            //The "AddDbContext" above makes this service scoped
+            services.AddTransient<DutchSeeder>();
 
             //The Singleton service below is used when you have a service that you want to reuse over and over again
             //services.AddSingleton
